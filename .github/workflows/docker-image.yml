@@ -16,5 +16,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag demo:latest
-        docker push papannah/hema/demo:latest
+        docker build . --file Dockerfile --tag gitopscalculator:latest
+        docker image push https://hub.docker.com/papannah/hema/gitopscalculator:latest
+        #docker push papannah/hema/gitopscalculator:latest
