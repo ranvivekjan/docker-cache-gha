@@ -77,7 +77,7 @@ jobs:
       - name: Build and Run Tests
         run: mvn -B test --file pom.xml
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.9
+        uses: EnricoMi/publish-unit-test-result-action@latest
         with:
           files: "target/surefire-reports/*.xml"
   
