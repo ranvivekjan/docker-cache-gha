@@ -138,7 +138,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
-          repository: papannah/hema/gitopscalculator-latest
+          repository: ${{ secrets.DOCKER_REPO }}
           tag_with_ref: true
 
   PushDockerImage_GitHubPackages:
@@ -154,7 +154,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: papannah/hema/gitopscalculator-latest
+          repository: ${{ secrets.DOCKER_REPO }}
           tag_with_ref: true
           
           
