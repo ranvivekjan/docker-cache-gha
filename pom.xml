@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-v4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.example</groupId>
 	<artifactId>gitopscalculator</artifactId>
@@ -9,11 +9,11 @@
 	<packaging>war</packaging>
 	<name>gitopscalculator_Maven_Webapp</name>
 	<!-- FIXME change it to the project's website -->
-	<url>https://phvr.co.in.com</url>
+	<url>https://phvr.co.in</url>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sonar.organization>he329178</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
@@ -26,7 +26,7 @@
 		<dependency>
   			<groupId>org.apache.maven.plugins</groupId>
   			<artifactId>maven-compiler-plugin</artifactId>
-  			<version>3.11.0</version>
+  			<version>3.8.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -58,29 +58,6 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-        			<artifactId>maven-enforcer-plugin</artifactId>
-        			<version>3.2.1</version>
-        			<executions>
-          				<execution>
-            					<id>enforce-maven</id>
-            					<goals>
-              						<goal>enforce</goal>
-            					</goals>
-            					<configuration>
-              						<rules>
-                						<requireMavenVersion>
-                  							<version>3.6.3</version>
-                						</requireMavenVersion>
-                						<requireJavaVersion>
-                  							<version>11</version>
-                						</requireJavaVersion>
-              						</rules>
-            					</configuration>
-          				</execution>
-        			</executions>
-      			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
