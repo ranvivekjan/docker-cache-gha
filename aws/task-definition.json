@@ -1,5 +1,5 @@
 {
-  "family": "DevClusterTask",
+  "family": "DevClusterTaskDefinition",
   "networkMode": "awsvpc",
   "executionRoleArn": "arn:aws:iam::364179845524:role/ecsTaskExecutionRole",
   "containerDefinitions": [
@@ -15,9 +15,9 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/DevClusterTask",
+          "awslogs-group": "/ecs/DevClusterTaskDefinition",
           "awslogs-region": "ap-south-1",
-          "awslogs-stream-prefix": "DevClusterTask"
+          "awslogs-stream-prefix": "DevClusterTaskDefinition"
         }
       }
     }
