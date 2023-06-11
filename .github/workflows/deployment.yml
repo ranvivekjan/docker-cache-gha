@@ -1,0 +1,47 @@
+name: Create ECS Task
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  ECR_REPOSITORY: gitopscalculator
+  ECS_CLUSTER: DevCluster
+  ECS_TASK_DEFINITION: DevClusterTaskDefinition
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get ECR Image URI
+        id: ecr-image
+        run: |
+          echo "::set-output name=image-uri::${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ github.sha }}"
+
+      - name: Create ECS Task
+        run: |
+          aws ecs register-task-definition \
+            --family ${{ env.ECS_TASK_DEFINITION }} \
+            --container-definitions '[{"name":"container-name","image":"${{ steps.ecr-image.outputs.image-uri }}","essential":true}]' \
+            --region ${{ env.AWS_REGION }}
+
+      - name: Run ECS Task
+        run: |
+          aws ecs run-task \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --task-definition ${{ env.ECS_TASK_DEFINITION }} \
+            --region ${{ env.AWS_REGION }}
