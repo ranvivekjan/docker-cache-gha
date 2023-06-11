@@ -3,7 +3,7 @@ name: Deploy to ECS from ECR
 on:
   push:
     branches:
-      - master  # Replace with your branch name
+      - master 
 
 jobs:
   deploy_to_ecs:
