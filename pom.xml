@@ -118,11 +118,18 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
+ <distributionManagement>
    <repository>
      <id>github</id>
      <name>He329178 Apache Maven Packages</name>
      <url>https://maven.pkg.github.com/he329178/gitopscalculator</url>
    </repository>
+</distributionManagement>
+<distributionManagement>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>jfrog-snapshots</name>
+        <url>https://jfrog.phvr.co.in/artifactory/test-artifactory</url>
+    </snapshotRepository>
 </distributionManagement>
 </project>
