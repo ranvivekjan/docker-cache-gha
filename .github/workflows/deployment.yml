@@ -1,19 +1,13 @@
-name: Create ECS Task
+name: Deploy to ECS from ECR
 
 on:
   push:
     branches:
-      - master
-
-env:
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-  ECR_REPOSITORY: gitopscalculator
-  ECS_CLUSTER: DevCluster
-  ECS_TASK_DEFINITION: DevClusterTaskDefinition
+      - master  # Replace with your branch name
 
 jobs:
-  deploy:
+  deploy_to_ecs:
+    name: Deploy to ECS
     runs-on: ubuntu-latest
 
     steps:
@@ -25,23 +19,12 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ap-south-1
 
-      - name: Get ECR Image URI
-        id: ecr-image
-        run: |
-          echo "::set-output name=image-uri::${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ github.sha }}"
+      - name: Login to Amazon ECR
+        id: login
+        uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Create ECS Task
+      - name: Deploy to Amazon ECS
         run: |
-          aws ecs register-task-definition \
-            --family ${{ env.ECS_TASK_DEFINITION }} \
-            --container-definitions '[{"name":"container-name","image":"${{ steps.ecr-image.outputs.image-uri }}","essential":true}]' \
-            --region ${{ env.AWS_REGION }}
-
-      - name: Run ECS Task
-        run: |
-          aws ecs run-task \
-            --cluster ${{ env.ECS_CLUSTER }} \
-            --task-definition ${{ env.ECS_TASK_DEFINITION }} \
-            --region ${{ env.AWS_REGION }}
+          aws ecs update-service --cluster DevCluster --service DevClusterService --force-new-deployment
