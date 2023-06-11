@@ -33,12 +33,14 @@ jobs:
 
       - name: Push Docker image to ECR
         run: docker push 364179845524.dkr.ecr.ap-south-1.amazonaws.com/gitopscalculator:latest
-
-      - name: Deploy to ECS
-        uses: aws-actions/amazon-ecs-deploy@v1
-        with:
-          images: |
-            364179845524.dkr.ecr.ap-south-1.amazonaws.com/gitopscalculator:latest
-          region: ap-south-1
-          cluster: DevCluster
-          service: DevClusterService
+      - name: Deploy Docker image to ECS
+        run: |
+          aws ecs update-service --cluster DevCluster --service DevClusterService --force-new-deployment
+#       - name: Deploy to ECS
+#         uses: aws-actions/amazon-ecs-deploy@v1
+#         with:
+#           images: |
+#             364179845524.dkr.ecr.ap-south-1.amazonaws.com/gitopscalculator:latest
+#           region: ap-south-1
+#           cluster: DevCluster
+#           service: DevClusterService
