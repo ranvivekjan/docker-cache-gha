@@ -1,9 +1,10 @@
 name: Deploy to ECS from ECR
 
 on:
-  push:
-    branches:
-      - master 
+  workflow_call:
+#   push:
+#     branches:
+#       - master 
 
 jobs:
   deploy_to_ecs:
