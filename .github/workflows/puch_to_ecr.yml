@@ -1,9 +1,10 @@
 name: Push to ECR
 
 on:
-  push:
-    branches:
-      - master  # Replace with your branch name
+  workflow_call:
+#   push:
+#     branches:
+#       - master  # Replace with your branch name
 
 jobs:
   push_to_ecr:
@@ -33,3 +34,8 @@ jobs:
 
       - name: Push Docker image to ECR
         run: docker push 364179845524.dkr.ecr.ap-south-1.amazonaws.com/gitopscalculator:latest
+        
+  NextJob:
+    name: Deploy to ECS
+    needs: push_to_ecr
+    uses: ./.github/workflows/deployment.yml
