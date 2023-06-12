@@ -158,5 +158,9 @@ jobs:
           registry: docker.pkg.github.com
           repository: ${{ secrets.DOCKER_REPO }}
           tag_with_ref: true
+  NextJob:
+   name: Push to ECR
+   needs: PushDockerImage_GitHubPackages
+   uses: ./.github/workflows/puch_to_ecr.yml
           
           
