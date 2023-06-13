@@ -44,7 +44,7 @@ pipeline {
          stage('Build docker image'){
             steps{
                 script{
-                    sh 'sudo docker build -t papannah/jenkins .'
+                    sh 'docker build -t papannah/jenkins .'
                 }
             }
         }
@@ -52,9 +52,9 @@ pipeline {
             steps{
                 script{
                    withCredentials([string(credentialsId: 'papannah', variable: 'dockerhubpass')]) {
-                   sh 'sudo docker login -u papannah -p He329178'
+                   sh 'docker login -u papannah -p He329178'
                    }
-                   sh 'sudo docker push papannah/jenkins'
+                   sh 'docker push papannah/jenkins'
                 }
             }
         }
