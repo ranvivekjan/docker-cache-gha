@@ -44,7 +44,7 @@ pipeline {
          stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t papannah/jenkins .'
+                    sh 'sudo docker build -t papannah/jenkins .'
                 }
             }
         }
