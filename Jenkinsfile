@@ -16,6 +16,11 @@ pipeline {
                 mavenVersion()    
             }
         }
+        stage('Sonar') {
+            steps {
+                sonarScan()
+            }
+        }
         stage('RunTest Cases') {
             steps {
                 runTests()
