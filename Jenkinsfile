@@ -1,6 +1,8 @@
 @Library('global-shared-library') _
 pipeline {
-    agent any
+    agent {
+        label 'minikube'
+    }
 
     stages {
          stage('Check Out') {
