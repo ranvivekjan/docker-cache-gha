@@ -38,7 +38,12 @@ pipeline {
         }
         stage ('Artifact') {
             steps {
-            artifacts()
+                artifacts()
+            }
+        }
+        stage('Build and Deploy') {
+            steps {
+                deployToECS('target/gitopscalculator.war')
             }
         }
     }
