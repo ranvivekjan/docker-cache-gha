@@ -29,8 +29,6 @@ pipeline {
         stage('Build Code') {
             steps {
                 buildCode()
-                //sh 'mvn clean compile -P jacoco:report sonar:sonar war:war'
-                //sh 'mvn package -DskipTests=true'
             }
         }
     }
