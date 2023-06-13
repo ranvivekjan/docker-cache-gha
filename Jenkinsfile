@@ -36,5 +36,10 @@ pipeline {
                 buildCode()
             }
         }
+        stage ('Artifact') {
+            steps {
+            artifacts()
+            }
+        }
     }
 }
