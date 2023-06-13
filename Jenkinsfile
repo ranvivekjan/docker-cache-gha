@@ -52,7 +52,7 @@ pipeline {
             steps{
                 script{
                    withCredentials([string(credentialsId: 'papannah', variable: 'dockerhubpass')]) {
-                   sh 'docker login -u papannah -p He329178'
+                       sh 'docker login -u papannah -p ${dockerhubpass}'
                    }
                    sh 'docker push papannah/jenkins'
                 }
