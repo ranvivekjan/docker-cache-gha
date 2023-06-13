@@ -41,9 +41,21 @@ pipeline {
                 artifacts()
             }
         }
-        stage('Build and Deploy') {
-            steps {
-                deployToECS('target/gitopscalculator.war')
+         stage('Build docker image'){
+            steps{
+                script{
+                    sh 'docker build -t papannah/jenkins .'
+                }
+            }
+        }
+        stage('Push image to DockerHub'){
+            steps{
+                script{
+                   withCredentials([string(credentialsId: 'papannah', variable: 'dockerhubpass')]) {
+                   sh 'docker login -u papannah -p ${dockerhubpass}'
+                   }
+                   sh 'docker push papannah/jenkins'
+                }
             }
         }
     }
