@@ -48,15 +48,5 @@ pipeline {
                 }
             }
         }
-        stage('Push image to DockerHub'){
-            steps{
-                script{
-                   withCredentials([string(credentialsId: 'papannah', variable: 'dockerhubpass')]) {
-                   sh 'docker login -u papannah -p He329178'
-                   }
-                   sh 'docker push papannah/jenkins'
-                }
-            }
-        }
     }
 }
