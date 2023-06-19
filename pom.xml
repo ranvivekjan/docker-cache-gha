@@ -121,12 +121,19 @@
 			</plugin>
 		</plugins>
 	</build>
- <distributionManagement>
+	<distributionManagement>
+    		<repository>
+        		<id>central</id>
+        		<name>a0u5nbgc65pje-artifactory-primary-0-releases</name>
+        		<url>https://phvr.jfrog.io/artifactory/gitopscalculator-libs-release</url>
+    		</repository>
+	</distributionManagement>
+<!--  <distributionManagement>
 	 
 <!--    <repository>
      <id>github</id>
      <name>He329178 Apache Maven Packages</name>
      <url>https://maven.pkg.github.com/he329178/gitopscalculator</url>
    </repository> -->
-</distributionManagement>
+</distributionManagement> -->
 </project>
