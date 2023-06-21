@@ -35,7 +35,7 @@ jobs:
       # Step 1: Pause for manual approval
       - name: Create approval issue
         run: |
-          issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "<assignee>")
+          issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "he329178")
           echo "ISSUE_NUMBER=$(echo $issue_response | jq -r '.number')" >> $GITHUB_ENV
 
       # Step 2: Wait for manual approval
