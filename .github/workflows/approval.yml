@@ -2,9 +2,7 @@ name: Manual Approval Workflow
 
 on:
   push:
-    branches: [ master ]
-    tags:
-      - v*
+    branches: [master]
 
 jobs:
   build:
@@ -23,20 +21,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Create approval issue
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
       - name: Create approval issue
         id: create_issue
         run: |
-          response=$(curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            -d '{
-              "title": "Manual Approval Required",
-              "body": "Please review and approve this workflow run.",
-              "assignees": ["he329178@gmail.com"]
-            }' \
-            "https://api.github.com/repos/he329178/gitopscalculator/issues")
-          ISSUE_NUMBER=$(echo "$response" | jq -r '.number')
-          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
+          npm install @actions/github
+          node ./create_issue.js ${{ secrets.GITHUB_TOKEN }}
+        env:
+          ISSUE_NUMBER: ${{ steps.create_issue.outputs.issue_number }}
 
       # Step 2: Wait for manual approval
       - name: Wait for approval
