@@ -25,7 +25,7 @@ jobs:
       # Step 1: Create approval issue
       - name: Create approval issue
         run: |
-          issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "papannah" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}")
+          issue_response=$(gh issue create --repo he329178/gitopscalculator --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "papannah")
           echo "ISSUE_NUMBER=$(echo $issue_response | jq -r '.number')" >> $GITHUB_ENV
 
       # Step 2: Wait for manual approval
@@ -41,7 +41,7 @@ jobs:
       # Step 4: Resume the workflow on manual approval
       - name: Close approval issue
         run: |
-          gh issue close $ISSUE_NUMBER -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
+          gh issue close $ISSUE_NUMBER
 
       # Additional steps after approval if needed
 
