@@ -29,11 +29,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up GitHub CLI
+        run: |
+          echo "GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
       # Step 1: Pause for manual approval
       - name: Create approval issue
         run: |
           issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "he329178")
-          echo "::set-output name=issue_number::$(echo $issue_response | jq -r '.number')"
+          echo "::set-output name=issue_number::$(echo $issue_response | jq -r '.number')" >> $GITHUB_ENV
 
       # Step 2: Wait for manual approval
       - name: Wait for approval
