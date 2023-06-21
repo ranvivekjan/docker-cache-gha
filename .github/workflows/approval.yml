@@ -3,7 +3,7 @@ name: Manual Approval Workflow
 on:
   push:
     branches:
-      - main
+      - master
   #pull_request:
 
 jobs:
