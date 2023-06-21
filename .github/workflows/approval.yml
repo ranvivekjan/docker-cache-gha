@@ -32,7 +32,7 @@ jobs:
             -d '{
               "title": "Manual Approval Required",
               "body": "Please review and approve this workflow run.",
-              "assignees": ["papannah"]
+              "assignees": ["he329178"]
             }' \
             "https://api.github.com/repos/he329178/gitopscalculator/issues")
           ISSUE_NUMBER=$(echo "$response" | jq -r '.number')
