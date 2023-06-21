@@ -1,19 +1,14 @@
 name: Manual Approval Workflow
 
 on:
-   push:
+  push:
     branches: [ master ]
     tags:
       - v*
-#   push:
-#     branches:
-#       - master
-  #pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       # Step 1: Build and test your code
       - name: Checkout code
@@ -25,9 +20,7 @@ jobs:
 
   manual_approval:
     needs: build
-    #if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-
     steps:
       # Step 1: Create approval issue
       - name: Create approval issue
@@ -41,12 +34,11 @@ jobs:
         run: |
           echo "Workflow is paused, waiting for manual approval"
 
-      # Step 3: Perform manual checks (example: wait for a specific comment on the issue)
   some_other_job:
     needs: manual_approval
     runs-on: ubuntu-latest
-      # Step 4: Resume the workflow on manual approval
     steps:
+      # Step 4: Resume the workflow on manual approval
       - name: Close approval issue
         run: |
           gh issue close $ISSUE_NUMBER -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
