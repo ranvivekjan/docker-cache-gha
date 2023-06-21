@@ -1,9 +1,13 @@
 name: Manual Approval Workflow
 
 on:
-  push:
-    branches:
-      - master
+   push:
+    branches: [ master ]
+    tags:
+      - v*
+#   push:
+#     branches:
+#       - master
   #pull_request:
 
 jobs:
