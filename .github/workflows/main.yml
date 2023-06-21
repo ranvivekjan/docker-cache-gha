@@ -1,0 +1,52 @@
+name: Manual Approval Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Build and test your code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and test
+        run: |
+          mvn clean package --file pom.xml
+
+  manual_approval:
+    needs: build
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Pause for manual approval
+      - name: Create approval issue
+        run: |
+          issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "he329178")
+          echo "::set-output name=issue_number::$(echo $issue_response | jq -r '.number')"
+
+      # Step 2: Wait for manual approval
+      - name: Wait for approval
+        id: approval
+        run: |
+          echo "Workflow is paused, waiting for manual approval"
+
+      # Step 3: Perform manual checks (example: wait for a specific comment on the issue)
+
+      # Step 4: Resume the workflow on manual approval
+      - name: Close approval issue
+        run: |
+          gh issue close ${{issue_number}}
+
+      # Additional steps after approval if needed
+
+      # Example: Deploy the code
+      - name: Deploy
+        run: |
+          echo "Deployment Done"
