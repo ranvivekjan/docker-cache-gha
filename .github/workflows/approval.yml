@@ -46,7 +46,7 @@ jobs:
       # Step 4: Resume the workflow on manual approval
       - name: Close approval issue
         run: |
-          gh issue close ${{issue_number}}
+          gh issue close $issue_number
 
       # Additional steps after approval if needed
 
