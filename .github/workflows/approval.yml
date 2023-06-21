@@ -35,8 +35,8 @@ jobs:
       # Step 1: Pause for manual approval
       - name: Create approval issue
         run: |
-          issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "he329178")
-          echo "::set-output name=issue_number::$(echo $issue_response | jq -r '.number')" >> $GITHUB_ENV
+          issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "<assignee>")
+          echo "ISSUE_NUMBER=$(echo $issue_response | jq -r '.number')" >> $GITHUB_ENV
 
       # Step 2: Wait for manual approval
       - name: Wait for approval
@@ -45,11 +45,14 @@ jobs:
           echo "Workflow is paused, waiting for manual approval"
 
       # Step 3: Perform manual checks (example: wait for a specific comment on the issue)
-
+  some_other_job:
+    needs: manual_approval
+    runs-on: ubuntu-latest
       # Step 4: Resume the workflow on manual approval
+    steps:
       - name: Close approval issue
         run: |
-          gh issue close $issue_number
+          gh issue close $ISSUE_NUMBER
 
       # Additional steps after approval if needed
 
