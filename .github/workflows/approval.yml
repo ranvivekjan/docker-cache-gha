@@ -34,6 +34,8 @@ jobs:
           echo "export GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
       # Step 1: Pause for manual approval
       - name: Create approval issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "papannah")
           echo "ISSUE_NUMBER=$(echo $issue_response | jq -r '.number')" >> $GITHUB_ENV
