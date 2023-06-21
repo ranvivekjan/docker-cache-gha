@@ -29,9 +29,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up GitHub CLI
-        run: |
-          echo "export GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+#       - name: Set up GitHub CLI
+#         run: |
+#           echo "export GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
       # Step 1: Pause for manual approval
       - name: Create approval issue
         env:
