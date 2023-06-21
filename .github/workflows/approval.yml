@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  pull_request:
+  #pull_request:
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
 
   manual_approval:
     needs: build
-    if: github.event_name == 'pull_request'
+    #if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
