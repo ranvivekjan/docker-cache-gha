@@ -24,9 +24,19 @@ jobs:
     steps:
       # Step 1: Create approval issue
       - name: Create approval issue
+        id: create_issue
         run: |
-          issue_response=$(gh issue create --repo he329178/gitopscalculator --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "papannah")
-          echo "ISSUE_NUMBER=$(echo $issue_response | jq -r '.number')" >> $GITHUB_ENV
+          response=$(curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{
+              "title": "Manual Approval Required",
+              "body": "Please review and approve this workflow run.",
+              "assignees": ["papannah"]
+            }' \
+            "https://api.github.com/repos/he329178/gitopscalculator/issues")
+          ISSUE_NUMBER=$(echo "$response" | jq -r '.number')
+          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
 
       # Step 2: Wait for manual approval
       - name: Wait for approval
@@ -41,7 +51,13 @@ jobs:
       # Step 4: Resume the workflow on manual approval
       - name: Close approval issue
         run: |
-          gh issue close $ISSUE_NUMBER
+          curl -X PATCH \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{
+              "state": "closed"
+            }' \
+            "https://api.github.com/repos/he329178/gitopscalculator/issues/$ISSUE_NUMBER"
 
       # Additional steps after approval if needed
 
