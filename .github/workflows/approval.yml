@@ -29,14 +29,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-#       - name: Set up GitHub CLI
-#         run: |
-#           echo "export GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
-      # Step 1: Pause for manual approval
+      # Step 1: Create approval issue
       - name: Create approval issue
         run: |
-          echo "export GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
-          issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "papannah")
+          issue_response=$(gh issue create --title "Manual Approval Required" --body "Please review and approve this workflow run." --assignee "papannah" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}")
           echo "ISSUE_NUMBER=$(echo $issue_response | jq -r '.number')" >> $GITHUB_ENV
 
       # Step 2: Wait for manual approval
@@ -53,7 +49,7 @@ jobs:
     steps:
       - name: Close approval issue
         run: |
-          gh issue close $ISSUE_NUMBER
+          gh issue close $ISSUE_NUMBER -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
 
       # Additional steps after approval if needed
 
