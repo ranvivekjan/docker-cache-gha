@@ -1,9 +1,9 @@
-name: ci-inline-cache
+name: z-ci-inline-cache
 
 on:
-  push:
-    branches:
-      - "master"
+#   push:
+#     branches:
+#       - "master"
   workflow_dispatch:
 
 
