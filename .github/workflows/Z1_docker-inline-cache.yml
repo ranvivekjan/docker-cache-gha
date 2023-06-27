@@ -1,4 +1,4 @@
-name: z-ci-inline-cache
+name: z1-ci-inline-cache
 
 on:
 #   push:
