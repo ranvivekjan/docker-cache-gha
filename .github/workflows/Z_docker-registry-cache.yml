@@ -1,4 +1,4 @@
-name: ci
+name: z-docker-registry-cache
 
 on:
   #push:
