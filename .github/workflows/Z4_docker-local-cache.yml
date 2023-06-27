@@ -1,9 +1,10 @@
 name: z4-docker-local-cache
 
 on:
-  push:
-    branches:
-      - "main"
+#   push:
+#     branches:
+#       - "main"
+  workflow_dispatch:
 
 jobs:
   docker:
