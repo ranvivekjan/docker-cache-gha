@@ -1,4 +1,4 @@
-name: z-docker-cache-api
+name: z3-docker-cache-api
 
 on:
   #push:
