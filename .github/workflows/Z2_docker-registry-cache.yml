@@ -1,4 +1,4 @@
-name: z-docker-registry-cache
+name: z2-docker-registry-cache
 
 on:
   #push:
