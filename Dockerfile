@@ -4,6 +4,7 @@ WORKDIR /workspace
 COPY pom.xml /workspace
 COPY settings.xml /workspace
 COPY src /workspace/src
+RUN mvn clean install
 RUN mvn -B -f pom.xml clean package -DskipTests
 
 FROM tomcat:latest
