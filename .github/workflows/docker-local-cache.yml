@@ -1,4 +1,4 @@
-name: z4-docker-local-cache
+name: docker-local-cache
 
 on:
 #   push:
