@@ -28,6 +28,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ranjanvivek/gitopscalculator:latest
+          tags: ranjanvivek/gitopscalculator-api-cache:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
